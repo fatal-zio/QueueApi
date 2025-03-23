@@ -8,10 +8,12 @@ namespace QueueApi.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
         [MaxLength(100)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public int SessionId { get; set; }
         public Session Session { get; set; }
+        public int StatusId { get; set; }
+        public Status Status { get; set; }
+        public int Order { get; set; } 
     }
 }
