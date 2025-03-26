@@ -2,7 +2,7 @@
 
 namespace QueueApi.Models
 {
-    public class SessionForUpdateDto
+    public class SessionWithoutEntriesDto
     {
         public int Id { get; set; }
         public required string Name { get; set; }

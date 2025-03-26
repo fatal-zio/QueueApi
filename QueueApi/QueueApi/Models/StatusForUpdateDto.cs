@@ -2,6 +2,6 @@
 {
     public class StatusForUpdateDto
     {
-
+        public string Name { get; set; }
     }
 }

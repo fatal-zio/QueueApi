@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<QueueContext>(dbContext =>
     dbContext.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDBConnectionString"]));
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSwaggerGen();
 
