@@ -21,14 +21,24 @@ namespace QueueApi.Services
             await _context.Sessions.AddAsync(session);
         }
 
-        public void DeleteEntryAsync(Entry entry)
+        public async Task AddStatusAsync(Status status)
+        {
+            await _context.Statuses.AddAsync(status);
+        }
+
+        public void DeleteEntry(Entry entry)
         {
             _context.Entries.Remove(entry);
         }
 
-        public void DeleteSessionAsync(Session session)
+        public void DeleteSession(Session session)
         {
             _context.Sessions.Remove(session);
+        }
+
+        public void DeleteStatus(Status status)
+        {
+            _context.Statuses.Remove(status);
         }
 
         public Task<bool> EntryExistsAsync(int sessionId, int entryId)
@@ -60,6 +70,11 @@ namespace QueueApi.Services
         public async Task<Status?> GetStatusAsync(int statusId)
         {
             return await _context.Statuses.FirstOrDefaultAsync(s => s.Id == statusId);
+        }
+
+        public async Task<IEnumerable<Status>> GetStatusesAsync()
+        {
+            return await _context.Statuses.ToListAsync();
         }
 
         public async Task<bool> SaveAsync()

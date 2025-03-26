@@ -8,6 +8,7 @@ namespace QueueApi.Services
         Task<Session?> GetSessionAsync(int sessionId, bool includeEntries);
         Task<IEnumerable<Entry>> GetEntriesAsync(int sessionId);
         Task<Entry?> GetEntryAsync(int sessionId, int entryId);
+        Task<IEnumerable<Status>> GetStatusesAsync();
         Task<Status?> GetStatusAsync(int statusId);
         Task<bool> SessionExistsAsync(int sessionId);
         Task<bool> EntryExistsAsync(int sessionId, int entryId);
@@ -15,7 +16,9 @@ namespace QueueApi.Services
         Task<bool> SaveAsync();
         Task AddSessionAsync(Session session);
         Task AddEntryAsync(int sessionId, Entry entry);
-        void DeleteSessionAsync(Session session);
-        void DeleteEntryAsync(Entry entry);
+        Task AddStatusAsync(Status status);
+        void DeleteSession(Session session);
+        void DeleteEntry(Entry entry);
+        void DeleteStatus(Status status);
     }
 }
