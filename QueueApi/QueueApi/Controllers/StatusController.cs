@@ -7,20 +7,23 @@ using QueueApi.Services;
 namespace QueueApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/status")]
     public class StatusController(IQueueRepository queueRepository, IMapper mapper) : ControllerBase
     {
         private readonly IQueueRepository _queueRepository = queueRepository;
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<IActionResult> GetStatuses()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<StatusDto>>> GetStatuses()
         {
             var statuses = await _queueRepository.GetStatusesAsync();
             return Ok(_mapper.Map<IEnumerable<StatusDto>>(statuses));
         }
 
-        [HttpGet("{statusId}")]
+        [HttpGet("{statusId}", Name = "GetStatus")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetStatus(int statusId)
         {
             var status = await _queueRepository.GetStatusAsync(statusId);
@@ -34,6 +37,8 @@ namespace QueueApi.Controllers
         }
 
         [HttpPut("{statusId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateStatus(int statusId, StatusForUpdateDto statusForUpdateDto)
         {
             var status = await _queueRepository.GetStatusAsync(statusId);
@@ -49,7 +54,9 @@ namespace QueueApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStatus(StatusForCreationDto statusForCreationDto)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<StatusDto>> CreateStatus(StatusForCreationDto statusForCreationDto)
         {
             var status = _mapper.Map<Status>(statusForCreationDto);
             await _queueRepository.AddStatusAsync(status);
@@ -59,6 +66,8 @@ namespace QueueApi.Controllers
         }
 
         [HttpDelete("{statusId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteStatus(int statusId)
         {
             var status = await _queueRepository.GetStatusAsync(statusId);

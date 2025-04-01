@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using QueueApi.DbContexts;
+using QueueApi.Services;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -21,6 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<QueueContext>(dbContext =>
     dbContext.UseSqlite(builder.Configuration["ConnectionStrings:QueueDBConnectionString"]));
+
+builder.Services.AddScoped<IQueueRepository, QueueRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

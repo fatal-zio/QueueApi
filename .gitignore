@@ -399,3 +399,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /QueueApi/QueueApi/Queue.db
+/QueueApi/QueueApi/Queue.db-shm
+/QueueApi/QueueApi/Queue.db-wal
